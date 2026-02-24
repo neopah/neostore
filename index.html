@@ -53,6 +53,7 @@
     }
 
     .card {
+      position: relative;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
       border-radius: 20px;
@@ -64,6 +65,8 @@
       aspect-ratio: 1 / 1;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-size: cover; /* Background Image Size */
+      background-position: center; /* Center the image */
     }
 
     .card img {
@@ -78,8 +81,26 @@
       transform: scale(1.05);
     }
 
-    .card h3 {
+    /* Overlay untuk memberi kontras pada teks */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Efek transparansi gelap */
+      border-radius: 20px;
+      z-index: 1;
+    }
+
+    .card h3, .card p {
+      position: relative;
+      z-index: 2; /* Teks berada di atas overlay */
       color: #fff;
+    }
+
+    .card h3 {
       margin-top: 15px;
       font-size: 20px;
     }
@@ -219,36 +240,31 @@
 
 <section class="card-container">
   <!-- Produk 1 -->
-  <div class="card" onclick="selectProduct('Batu Evo', 500)">
-    <img src="img/batu-evo.jpg" alt="Batu Evo">
+  <div class="card" style="background-image: url('img/batu-evo.jpg');" onclick="selectProduct('Batu Evo', 500)">
     <h3>Batu Evo</h3>
     <p>Rp500</p>
   </div>
 
   <!-- Produk 2 -->
-  <div class="card" onclick="selectProduct('Secret Tumbal', 1000)">
-    <img src="img/secret-tumbal.jpg" alt="Secret Tumbal">
+  <div class="card" style="background-image: url('img/secret-tumbal.jpg');" onclick="selectProduct('Secret Tumbal', 1000)">
     <h3>Secret Tumbal</h3>
     <p>Rp1.000</p>
   </div>
 
   <!-- Produk 3 -->
-  <div class="card" onclick="selectProduct('Maja Biru', 3000)">
-    <img src="img/maja-biru.jpg" alt="Maja Biru">
+  <div class="card" style="background-image: url('img/maja-biru.jpg');" onclick="selectProduct('Maja Biru', 3000)">
     <h3>Maja Biru</h3>
     <p>Rp3.000</p>
   </div>
 
   <!-- Produk 4 -->
-  <div class="card" onclick="selectProduct('Maja Kuning', 4000)">
-    <img src="img/maja-kuning.jpg" alt="Maja Kuning">
+  <div class="card" style="background-image: url('img/maja-kuning.jpg');" onclick="selectProduct('Maja Kuning', 4000)">
     <h3>Maja Kuning</h3>
     <p>Rp4.000</p>
   </div>
 
   <!-- Produk 5 -->
-  <div class="card" onclick="selectProduct('Megalodon', 10000)">
-    <img src="img/megalodon.jpg" alt="Megalodon">
+  <div class="card" style="background-image: url('img/megalodon.jpg');" onclick="selectProduct('Megalodon', 10000)">
     <h3>Megalodon</h3>
     <p>Rp10.000</p>
   </div>

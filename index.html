@@ -12,6 +12,9 @@
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: white;
       text-align: center;
+      overflow-x: hidden;
+      padding: 0;
+      margin: 0;
     }
 
     header {
@@ -98,9 +101,10 @@
     }
 
     .input-group input, .input-group select {
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
-      width: 200px;
+      width: 250px;
+      max-width: 90%; /* Mengatur lebar input agar responsif */
       border-radius: 10px;
       border: 1px solid #00ffcc;
       background-color: rgba(0, 0, 0, 0.2);
@@ -108,7 +112,7 @@
     }
 
     .input-group button {
-      padding: 10px;
+      padding: 12px;
       font-size: 20px;
       background-color: #00ffcc;
       border: none;
@@ -157,9 +161,28 @@
       font-size: 14px;
     }
 
+    #idPembayaranBox {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #00ffcc;
+      text-shadow: 0 0 15px #00ffcc;
+    }
+
+    /* Agar tombol Order dan Cek Status bisa bekerja tanpa gangguan */
+    button:focus {
+      outline: none;
+    }
+
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scrollable Container untuk Formulir di Mobile */
+    .scrollable-form {
+      max-height: 70vh;
+      overflow-y: auto;
     }
 
   </style>
@@ -207,7 +230,7 @@
   </div>
 </section>
 
-<section class="card">
+<section class="card scrollable-form">
   <form id="orderForm">
     <div class="input-group">
       <input type="text" id="username" placeholder="Username Fishit" required>
@@ -218,19 +241,20 @@
         <option>DANA</option>
         <option>OVO</option>
         <option>GOPAY</option>
-        <option>QRIS</option>
       </select>
     </div>
     <div class="input-group">
-      <button type="button" onclick="updateJumlah(-1)">-</button>
       <input type="number" id="jumlah" placeholder="Jumlah Pembelian" min="1" value="1" required>
-      <button type="button" onclick="updateJumlah(1)">+</button>
     </div>
 
     <div id="totalBox">Total: Rp0</div>
     <div id="summaryBox"></div>
+    
+    <!-- ID Pembayaran Ditampilkan -->
+    <div id="idPembayaranBox">ID Pembayaran: -</div>
 
-    <button type="submit">ORDER SEKARANG</button>
+    <!-- Tombol Order yang hanya memproses dan memberikan pilihan -->
+    <button type="button" onclick="submitOrder()">ORDER SEKARANG</button>
     <hr style="margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1)">
     <h3>Cek Status Pembayaran</h3>
     <input type="text" id="cekId" placeholder="Masukkan ID Pembayaran">
@@ -240,9 +264,10 @@
 </section>
 
 <script>
-// Fungsi untuk memilih produk dan menyimpan informasi transaksi
+// Data Order
 let dataOrder = {};
 
+// Fungsi untuk memilih produk dan menyimpan informasi transaksi
 function selectProduct(produk, harga) {
   dataOrder.id = generateUniqueId(); // Menambahkan ID transaksi unik
   dataOrder.produk = produk;
@@ -264,6 +289,9 @@ function updateTotalPrice() {
   document.getElementById("summaryBox").style.display = "block";
   document.getElementById("summaryBox").innerHTML = 
     `Ringkasan Order:<br>Produk: ${dataOrder.produk}<br>Harga: Rp${harga.toLocaleString("id-ID")}<br>Jumlah: ${jumlah}<br>Total: Rp${total.toLocaleString("id-ID")}<br>Status: <span style="color:orange;">PENDING</span><br><br>`;
+
+  // Menampilkan ID Pembayaran
+  document.getElementById("idPembayaranBox").innerText = `ID Pembayaran: ${dataOrder.id}`;
 }
 
 // Fungsi untuk menggenerate ID unik untuk transaksi
@@ -271,19 +299,26 @@ function generateUniqueId() {
   return 'ID-' + Math.floor(Math.random() * 1000000); // Contoh ID unik
 }
 
-// Fungsi untuk menambah atau mengurangi jumlah pembelian
-function updateJumlah(increment) {
-  let jumlahInput = document.getElementById("jumlah");
-  let jumlah = parseInt(jumlahInput.value) || 1;
-  jumlah += increment;
-  if (jumlah < 1) jumlah = 1; // Jangan biarkan jumlah kurang dari 1
-  jumlahInput.value = jumlah;
-  dataOrder.jumlah = jumlah;
-  updateTotalPrice();
+// Fungsi untuk submit order
+function submitOrder() {
+  let metode = document.getElementById("metode").value;
+  
+  if (metode === "") {
+    alert("Pilih metode pembayaran terlebih dahulu!");
+    return;
+  }
+
+  // Mengonfirmasi pemilihan metode pembayaran
+  let pesan = `Pesanan Anda telah diproses dengan metode pembayaran ${metode}.`;
+
+  alert(pesan);
+  
+  // Kirim ke WhatsApp
+  kirimWA(metode);
 }
 
 // Kirim pesan WhatsApp
-function kirimWA(status = "PENDING") {
+function kirimWA(metode) {
   let pesan = 
     `Halo Admin, saya mau beli:\n\n` +
     `ID Pembayaran: ${dataOrder.id}\n` +
@@ -291,7 +326,7 @@ function kirimWA(status = "PENDING") {
     `Jumlah pembelian: ${dataOrder.jumlah}\n` +
     `Produk: ${dataOrder.produk}\n` +
     `Total pembayaran: Rp${dataOrder.total.toLocaleString("id-ID")}\n` +
-    `Status: ${status}\n\n` +
+    `Metode Pembayaran: ${metode}\n\n` +
     `Terimakasih sudah order di NEOSTORE ⚡`;
 
   window.open("https://wa.me/6281328941033?text=" + encodeURIComponent(pesan), "_blank");

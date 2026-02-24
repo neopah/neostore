@@ -65,8 +65,8 @@
       aspect-ratio: 1 / 1;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background-size: cover; /* Background Image Size */
-      background-position: center; /* Center the image */
+      background-size: cover;
+      background-position: center;
     }
 
     .card img {
@@ -81,7 +81,6 @@
       transform: scale(1.05);
     }
 
-    /* Overlay untuk memberi kontras pada teks */
     .card::after {
       content: '';
       position: absolute;
@@ -89,15 +88,16 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Efek transparansi gelap */
+      background: rgba(0, 0, 0, 0.3); /* Mengurangi opacity agar lebih terang */
       border-radius: 20px;
       z-index: 1;
     }
 
     .card h3, .card p {
       position: relative;
-      z-index: 2; /* Teks berada di atas overlay */
+      z-index: 2;
       color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     }
 
     .card h3 {
@@ -122,6 +122,8 @@
     }
 
     .input-group input, .input-group select {
+      z-index: 2; /* Pastikan input berada di atas overlay */
+      position: relative; /* Mengubah posisi agar z-index berfungsi */
       padding: 12px;
       font-size: 16px;
       width: 250px;
@@ -190,7 +192,6 @@
       text-shadow: 0 0 15px #00ffcc;
     }
 
-    /* Agar tombol Order dan Cek Status bisa bekerja tanpa gangguan */
     button:focus {
       outline: none;
     }
@@ -200,7 +201,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Scrollable Container untuk Formulir di Mobile */
     .scrollable-form {
       max-height: 70vh;
       overflow-y: auto;

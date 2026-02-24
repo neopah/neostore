@@ -1,178 +1,237 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeoStore Premium</title>
-<style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
-  text-align: center;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoStore Premium</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-header {
-  padding: 40px 20px;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      text-align: center;
+    }
 
-header h1 {
-  font-size: 42px;
-  color: #00ffcc;
-  margin: 0;
-  letter-spacing: 2px;
-  text-shadow: 0 0 15px #00ffcc;
-}
+    header {
+      padding: 40px 20px;
+      width: 100%;
+      text-align: center;
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
 
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
+    header h1 {
+      font-size: 48px;
+      color: #00ffe1;
+      margin: 0;
+      letter-spacing: 4px;
+      font-weight: 900;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-.card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 255, 200, 0.3);
-  text-align: center;
-}
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      padding: 30px 20px;
+      margin: 40px auto;
+      max-width: 1000px;
+    }
 
-.card img {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-}
+    @media (max-width: 768px) {
+      .card-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        max-width: 100%;
+      }
+    }
 
-.card h3 {
-  color: #fff;
-  margin-top: 10px;
-}
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 0 35px rgba(0, 255, 200, 0.3);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.card p {
-  color: #00ffcc;
-  font-weight: bold;
-  margin: 10px 0;
-}
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background: #00ffcc;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    .card:hover img {
+      transform: scale(1.05);
+    }
 
-button:hover {
-  background: #00ccaa;
-  transform: scale(1.05);
-}
+    .card h3 {
+      color: #fff;
+      margin-top: 15px;
+      font-size: 20px;
+    }
 
-#totalBox {
-  margin-top: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #00ffcc;
-  text-shadow: 0 0 15px #00ffcc;
-}
+    .card p {
+      color: #00ffcc;
+      font-weight: 500;
+      font-size: 18px;
+      margin-top: auto;
+    }
 
-#summaryBox {
-  display: none;
-  margin-top: 15px;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 15px;
-  font-size: 14px;
-}
+    .input-group {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-#hasilCek {
-  margin-top: 10px;
-  font-weight: bold;
-}
+    .input-group input, .input-group select {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+      border-radius: 10px;
+      border: 1px solid #00ffcc;
+      background-color: rgba(0, 0, 0, 0.2);
+      color: white;
+    }
 
-hr {
-  margin: 20px 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
+    .input-group button {
+      padding: 10px;
+      font-size: 20px;
+      background-color: #00ffcc;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-</style>
+    .input-group button:hover {
+      background-color: #00ccaa;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      background: #00ffcc;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00ccaa;
+      transform: scale(1.05);
+    }
+
+    #totalBox {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #00ffcc;
+      text-shadow: 0 0 15px #00ffcc;
+    }
+
+    #summaryBox {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      font-size: 14px;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+  </style>
 </head>
 <body>
 
 <header>
   <h1>NEOSTORE⚡</h1>
-  <p>Top Up Fishit Premium ⚡</p>
 </header>
 
 <section class="card-container">
   <!-- Produk 1 -->
-  <div class="card">
+  <div class="card" onclick="selectProduct('Batu Evo', 500)">
     <img src="img/batu-evo.jpg" alt="Batu Evo">
     <h3>Batu Evo</h3>
     <p>Rp500</p>
-    <button onclick="order('Batu Evo - Rp500', 500)">Order Sekarang</button>
   </div>
 
   <!-- Produk 2 -->
-  <div class="card">
+  <div class="card" onclick="selectProduct('Secret Tumbal', 1000)">
     <img src="img/secret-tumbal.jpg" alt="Secret Tumbal">
     <h3>Secret Tumbal</h3>
     <p>Rp1.000</p>
-    <button onclick="order('Secret Tumbal - Rp1.000', 1000)">Order Sekarang</button>
   </div>
 
   <!-- Produk 3 -->
-  <div class="card">
+  <div class="card" onclick="selectProduct('Maja Biru', 3000)">
     <img src="img/maja-biru.jpg" alt="Maja Biru">
     <h3>Maja Biru</h3>
     <p>Rp3.000</p>
-    <button onclick="order('Maja Biru - Rp3.000', 3000)">Order Sekarang</button>
   </div>
 
   <!-- Produk 4 -->
-  <div class="card">
+  <div class="card" onclick="selectProduct('Maja Kuning', 4000)">
     <img src="img/maja-kuning.jpg" alt="Maja Kuning">
     <h3>Maja Kuning</h3>
     <p>Rp4.000</p>
-    <button onclick="order('Maja Kuning - Rp4.000', 4000)">Order Sekarang</button>
   </div>
 
   <!-- Produk 5 -->
-  <div class="card">
+  <div class="card" onclick="selectProduct('Megalodon', 10000)">
     <img src="img/megalodon.jpg" alt="Megalodon">
     <h3>Megalodon</h3>
     <p>Rp10.000</p>
-    <button onclick="order('Megalodon - Rp10.000', 10000)">Order Sekarang</button>
   </div>
 </section>
 
-<!-- Form untuk Order -->
 <section class="card">
   <form id="orderForm">
-    <input type="text" id="username" placeholder="Username Fishit" required>
-
-    <select id="metode" required>
-      <option value="">Metode Pembayaran</option>
-      <option>DANA</option>
-      <option>OVO</option>
-      <option>GOPAY</option>
-      <option>QRIS</option>
-    </select>
+    <div class="input-group">
+      <input type="text" id="username" placeholder="Username Fishit" required>
+    </div>
+    <div class="input-group">
+      <select id="metode" required>
+        <option value="">Metode Pembayaran</option>
+        <option>DANA</option>
+        <option>OVO</option>
+        <option>GOPAY</option>
+        <option>QRIS</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <button type="button" onclick="updateJumlah(-1)">-</button>
+      <input type="number" id="jumlah" placeholder="Jumlah Pembelian" min="1" value="1" required>
+      <button type="button" onclick="updateJumlah(1)">+</button>
+    </div>
 
     <div id="totalBox">Total: Rp0</div>
     <div id="summaryBox"></div>
 
     <button type="submit">ORDER SEKARANG</button>
-    <hr>
+    <hr style="margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1)">
     <h3>Cek Status Pembayaran</h3>
     <input type="text" id="cekId" placeholder="Masukkan ID Pembayaran">
     <button type="button" onclick="cekStatus()">Cek Status</button>
@@ -180,97 +239,62 @@ hr {
   </form>
 </section>
 
-<!-- QRIS POPUP -->
-<div id="qrisPopup">
-  <div class="qrisContent">
-    <h3 style="color:#00ffcc;">Scan QRIS</h3>
-    <img src="img/qris.jpg" style="width:220px;border-radius:12px;">
-    <br><br>
-    <button onclick="sudahBayar()">Saya Sudah Bayar</button>
-    <br><br>
-    <button onclick="tutupQR()" style="background:#444;">Tutup</button>
-  </div>
-</div>
-
 <script>
-// Produk
-let hargaMap = {
-  "Batu Evo - Rp500": 500,
-  "Secret Tumbal - Rp1.000": 1000,
-  "Maja Biru - Rp3.000": 3000,
-  "Maja Kuning - Rp4.000": 4000,
-  "Megalodon - Rp10.000": 10000
-};
-
+// Fungsi untuk memilih produk dan menyimpan informasi transaksi
 let dataOrder = {};
 
-function updateTotal() {
-  let h = hargaMap[dataOrder.produk] || 0;
-  let total = h * dataOrder.jumlah;
-  document.getElementById("totalBox").innerText = "Total: Rp" + total.toLocaleString("id-ID");
-}
-
-function order(produk, harga) {
+function selectProduct(produk, harga) {
+  dataOrder.id = generateUniqueId(); // Menambahkan ID transaksi unik
   dataOrder.produk = produk;
-  dataOrder.jumlah = 1; // Default quantity 1
-  dataOrder.total = harga;
+  dataOrder.harga = harga;
+  dataOrder.username = document.getElementById("username").value || "Anonymous";
+  dataOrder.jumlah = parseInt(document.getElementById("jumlah").value) || 1;
+  updateTotalPrice();
+}
 
-  // Update Total
-  updateTotal();
-
-  // Display Summary
+// Fungsi untuk menghitung total harga
+function updateTotalPrice() {
+  let jumlah = parseInt(document.getElementById("jumlah").value) || 1;
+  let harga = dataOrder.harga || 0;
+  let total = jumlah * harga;
+  dataOrder.total = total; // Menyimpan total pembayaran ke dataOrder
+  document.getElementById("totalBox").innerText = `Total: Rp${total.toLocaleString("id-ID")}`;
+  
+  // Update summary
   document.getElementById("summaryBox").style.display = "block";
-  document.getElementById("summaryBox").innerHTML =
-    `Ringkasan Order:<br>
-    Produk: ${produk}<br>
-    Total: Rp${harga.toLocaleString("id-ID")}<br>
-    Status: <span style="color:orange;">PENDING</span><br><br>
-    <button onclick="ubahStatus('BERHASIL')">Simulasi Berhasil</button>
-    <button onclick="ubahStatus('GAGAL')">Simulasi Gagal</button>`;
-
-  // Open QRIS or WA
-  if (document.getElementById("metode").value === "QRIS") {
-    document.getElementById("qrisPopup").style.display = "flex";
-  } else {
-    kirimWA("PENDING");
-  }
+  document.getElementById("summaryBox").innerHTML = 
+    `Ringkasan Order:<br>Produk: ${dataOrder.produk}<br>Harga: Rp${harga.toLocaleString("id-ID")}<br>Jumlah: ${jumlah}<br>Total: Rp${total.toLocaleString("id-ID")}<br>Status: <span style="color:orange;">PENDING</span><br><br>`;
 }
 
-// Function to update status (Simulasi)
-function ubahStatus(statusBaru) {
-  let warna = statusBaru === "BERHASIL" ? "lime" : "red";
-  document.getElementById("summaryBox").innerHTML +=
-    `<p>Status Sekarang: <b style="color:${warna};">${statusBaru}</b></p>`;
-  kirimWA(statusBaru);
+// Fungsi untuk menggenerate ID unik untuk transaksi
+function generateUniqueId() {
+  return 'ID-' + Math.floor(Math.random() * 1000000); // Contoh ID unik
 }
 
-function kirimWA(status) {
-  let pesan =
-    `Halo Admin, saya mau beli:
+// Fungsi untuk menambah atau mengurangi jumlah pembelian
+function updateJumlah(increment) {
+  let jumlahInput = document.getElementById("jumlah");
+  let jumlah = parseInt(jumlahInput.value) || 1;
+  jumlah += increment;
+  if (jumlah < 1) jumlah = 1; // Jangan biarkan jumlah kurang dari 1
+  jumlahInput.value = jumlah;
+  dataOrder.jumlah = jumlah;
+  updateTotalPrice();
+}
 
-ID Pembayaran: ${dataOrder.id}
-Username: ${dataOrder.username}
-Jumlah pembelian: ${dataOrder.jumlah}
-Produk: ${dataOrder.produk}
-Total pembayaran: Rp${dataOrder.total.toLocaleString("id-ID")}
-Status: ${status}
-
-Terimakasih sudah order di NEOSTORE ⚡`;
+// Kirim pesan WhatsApp
+function kirimWA(status = "PENDING") {
+  let pesan = 
+    `Halo Admin, saya mau beli:\n\n` +
+    `ID Pembayaran: ${dataOrder.id}\n` +
+    `Username: ${dataOrder.username}\n` +
+    `Jumlah pembelian: ${dataOrder.jumlah}\n` +
+    `Produk: ${dataOrder.produk}\n` +
+    `Total pembayaran: Rp${dataOrder.total.toLocaleString("id-ID")}\n` +
+    `Status: ${status}\n\n` +
+    `Terimakasih sudah order di NEOSTORE ⚡`;
 
   window.open("https://wa.me/6281328941033?text=" + encodeURIComponent(pesan), "_blank");
-}
-
-// Function for QRIS Payment Success
-function sudahBayar() {
-  localStorage.setItem(dataOrder.id, "BERHASIL");
-  document.getElementById("summaryBox").innerHTML +=
-    `<p>Status Sekarang: <b style="color:lime;">BERHASIL</b></p>`;
-  kirimWA("BERHASIL");
-  tutupQR();
-}
-
-function tutupQR() {
-  document.getElementById("qrisPopup").style.display = "none";
 }
 
 // Cek Status Pembayaran

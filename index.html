@@ -185,6 +185,30 @@
       overflow-y: auto;
     }
 
+    #qrisPopup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .qrisContent {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      padding: 25px;
+      border-radius: 20px;
+      text-align: center;
+      width: 90%;
+      max-width: 320px;
+      box-shadow: 0 0 35px rgba(0, 255, 200, 0.5);
+    }
+
   </style>
 </head>
 <body>
@@ -241,6 +265,7 @@
         <option>DANA</option>
         <option>OVO</option>
         <option>GOPAY</option>
+        <option>QRIS</option>
       </select>
     </div>
     <div class="input-group">
@@ -253,7 +278,7 @@
     <!-- ID Pembayaran Ditampilkan -->
     <div id="idPembayaranBox">ID Pembayaran: -</div>
 
-    <!-- Tombol Order yang hanya memproses dan memberikan pilihan -->
+    <!-- Tombol Order -->
     <button type="button" onclick="submitOrder()">ORDER SEKARANG</button>
     <hr style="margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.1)">
     <h3>Cek Status Pembayaran</h3>
@@ -262,6 +287,18 @@
     <div id="hasilCek"></div>
   </form>
 </section>
+
+<!-- QRIS Popup -->
+<div id="qrisPopup">
+  <div class="qrisContent">
+    <h3>Scan QRIS untuk Pembayaran</h3>
+    <img src="img/qris.jpg" alt="QRIS" style="width: 220px; border-radius: 12px;">
+    <br><br>
+    <button onclick="sudahBayar()">Saya Sudah Bayar</button>
+    <br><br>
+    <button onclick="tutupQR()" style="background:#444;">Tutup</button>
+  </div>
+</div>
 
 <script>
 // Data Order
@@ -313,8 +350,13 @@ function submitOrder() {
 
   alert(pesan);
   
-  // Kirim ke WhatsApp
-  kirimWA(metode);
+  // Jika QRIS dipilih, tampilkan QRIS
+  if (metode === "QRIS") {
+    document.getElementById("qrisPopup").style.display = "flex";
+  } else {
+    // Kirim ke WhatsApp
+    kirimWA(metode);
+  }
 }
 
 // Kirim pesan WhatsApp
@@ -330,6 +372,21 @@ function kirimWA(metode) {
     `Terimakasih sudah order di NEOSTORE ⚡`;
 
   window.open("https://wa.me/6281328941033?text=" + encodeURIComponent(pesan), "_blank");
+}
+
+// Menutup QRIS popup
+function tutupQR() {
+  document.getElementById("qrisPopup").style.display = "none";
+}
+
+// Pembeli sudah bayar, konfirmasi pembayaran
+function sudahBayar() {
+  localStorage.setItem(dataOrder.id, "BERHASIL");
+  alert("Pembayaran Berhasil! Status Pembayaran: BERHASIL");
+
+  // Kirim konfirmasi ke WhatsApp
+  kirimWA("BERHASIL");
+  tutupQR();
 }
 
 // Cek Status Pembayaran

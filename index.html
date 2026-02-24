@@ -81,11 +81,6 @@
       transform: scale(1.05);
     }
 
-    /* Menghapus overlay pada form input */
-    .card::after {
-      display: none; /* Menghilangkan overlay */
-    }
-
     .card h3, .card p {
       position: relative;
       z-index: 2;
@@ -93,10 +88,18 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     }
 
-    .card h3 {
-      margin-top: 15px;
-      font-size: 20px;
-    }
+/* Menambahkan efek blur pada nama produk */
+.card h3 {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-size: 14px; /* Ukuran font nama produk lebih kecil */
+  background: rgba(0, 0, 0, 0.15); /* Mengurangi opacity background agar tidak terlalu gelap */
+  backdrop-filter: blur(5px); /* Efek blur pada background nama produk */
+  padding: 5px; /* Memberikan padding agar teks tidak terlalu rapat */
+  border-radius: 10px;
+}
 
     .card p {
       color: #00ffcc;
@@ -105,26 +108,39 @@
       margin-top: auto;
     }
 
-    .input-group {
-      margin-bottom: 20px;
+    /* Kontainer untuk harga dengan background blur */
+    .price-container {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5); /* Efek transparan */
+      backdrop-filter: blur(5px); /* Efek blur di belakang harga */
+      border-radius: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
     }
 
-    /* Menghapus background pada input dan select */
+    /* Gaya teks harga agar tetap jelas */
+    .price-container p {
+      font-size: 18px;
+      color: #00ffcc;
+      font-weight: bold;
+    }
+
+    /* Styling untuk form input */
     .input-group input, .input-group select {
-      background-color: transparent; /* Menghilangkan background */
-      border: 1px solid #00ffcc; /* Menjaga border tetap ada */
-      color: white; /* Teks tetap putih agar terbaca */
-      z-index: 2; /* Pastikan input tetap di atas overlay */
+      background-color: transparent;
+      border: 1px solid #00ffcc;
+      color: white;
+      z-index: 2;
       position: relative;
       padding: 12px;
       font-size: 16px;
       width: 250px;
-      max-width: 90%; /* Mengatur lebar input agar responsif */
+      max-width: 90%;
       border-radius: 10px;
     }
 
@@ -236,33 +252,44 @@
   <!-- Produk 1 -->
   <div class="card" style="background-image: url('img/batu-evo.jpg');" onclick="selectProduct('Batu Evo', 500)">
     <h3>Batu Evo</h3>
-    <p>Rp500</p>
+    <div class="price-container">
+      <p>Rp500</p>
+    </div>
   </div>
 
   <!-- Produk 2 -->
   <div class="card" style="background-image: url('img/secret-tumbal.jpg');" onclick="selectProduct('Secret Tumbal', 1000)">
     <h3>Secret Tumbal</h3>
-    <p>Rp1.000</p>
+    <div class="price-container">
+      <p>Rp1.000</p>
+    </div>
   </div>
 
   <!-- Produk 3 -->
   <div class="card" style="background-image: url('img/maja-biru.jpg');" onclick="selectProduct('Maja Biru', 3000)">
     <h3>Maja Biru</h3>
-    <p>Rp3.000</p>
+    <div class="price-container">
+      <p>Rp3.000</p>
+    </div>
   </div>
 
   <!-- Produk 4 -->
   <div class="card" style="background-image: url('img/maja-kuning.jpg');" onclick="selectProduct('Maja Kuning', 4000)">
     <h3>Maja Kuning</h3>
-    <p>Rp4.000</p>
+    <div class="price-container">
+      <p>Rp4.000</p>
+    </div>
   </div>
 
   <!-- Produk 5 -->
   <div class="card" style="background-image: url('img/megalodon.jpg');" onclick="selectProduct('Megalodon', 10000)">
     <h3>Megalodon</h3>
-    <p>Rp10.000</p>
+    <div class="price-container">
+      <p>Rp10.000</p>
+    </div>
   </div>
 </section>
+
 
 <section class="card scrollable-form">
   <form id="orderForm">

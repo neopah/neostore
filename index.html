@@ -13,13 +13,13 @@
     // ╔══════════════════════════════════════╗
     // ║   GANTI DENGAN CONFIG FIREBASE LO   ║
     // ╚══════════════════════════════════════╝
-const firebaseConfig = {
-      apiKey: "AIzaSyACbPIgufXB1kUR2gSnHLqkhHggc_UVHb8",
-      authDomain: "neostore-770c6.firebaseapp.com",
-      projectId: "neostore-770c6",
-      storageBucket: "neostore-770c6.firebasestorage.app",
-      messagingSenderId: "1025091375713",
-      appId: "1:1025091375713:web:a010e86c6f8c0527159020"
+    const firebaseConfig = {
+      apiKey: "GANTI_API_KEY",
+      authDomain: "GANTI_AUTH_DOMAIN",
+      projectId: "GANTI_PROJECT_ID",
+      storageBucket: "GANTI_STORAGE_BUCKET",
+      messagingSenderId: "GANTI_MESSAGING_ID",
+      appId: "GANTI_APP_ID"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -28,6 +28,7 @@ const firebaseConfig = {
       db,
       ordersRef: collection(db, "orders"),
       testiRef: collection(db, "testimoni"),
+      produksRef: collection(db, "produks"),
       addDoc, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy
     };
     window.dispatchEvent(new Event('firebase-ready'));
@@ -58,7 +59,7 @@ const firebaseConfig = {
 
     /* ── TOP NAV ── */
     .top-nav { position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(4,12,18,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,255,225,0.1);display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:100; }
-    .nav-logo { font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:var(--neon);letter-spacing:3px;text-shadow:var(--neon-glow);cursor:pointer;user-select:none;position:relative;padding:10px 4px; }
+    .nav-logo { font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:var(--neon);letter-spacing:3px;text-shadow:var(--neon-glow);cursor:pointer;user-select:none;position:relative;padding:10px 4px;z-index:102; }
     .tap-dots { display:flex;gap:4px;position:absolute;bottom:-2px;left:50%;transform:translateX(-50%); }
     .tap-dot { width:4px;height:4px;border-radius:50%;background:rgba(0,255,225,0.25);transition:all 0.2s; }
     .tap-dot.active { background:var(--neon);transform:scale(1.3);box-shadow:0 0 6px var(--neon); }
@@ -99,7 +100,7 @@ const firebaseConfig = {
     .card.selected .card-img{transform:scale(1.05);}
     .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,12,18,0.95) 0%,rgba(4,12,18,0.15) 55%,transparent 100%);}
     .card-content{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;}
-    .card-name{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.55);text-transform:uppercase;margin-bottom:3px;}
+    .card-name{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:1px;color:rgba(255,255,255,0.55);text-transform:uppercase;margin-bottom:3px;}
     .card-price{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:var(--neon);text-shadow:0 0 10px rgba(0,255,225,0.5);}
     .card-select-badge{position:absolute;top:8px;right:8px;background:var(--neon);color:#040c12;font-family:'Orbitron',sans-serif;font-size:7px;font-weight:700;padding:3px 7px;border-radius:5px;opacity:0;transform:scale(0.7);transition:all 0.2s;}
     .card.selected .card-select-badge{opacity:1;transform:scale(1);}
@@ -782,6 +783,393 @@ const firebaseConfig = {
     .btn-copy:active { opacity: 0.7; transform: scale(0.97); }
     .btn-copy.copied { opacity: 0.7; }
 
+
+    /* ══════════════════════════════
+       DESKTOP RESPONSIVE (>768px)
+    ══════════════════════════════ */
+    @media (min-width: 768px) {
+
+      /* Bottom nav jadi side nav di desktop */
+      .bottom-nav {
+        position: fixed;
+        left: 0; top: 0; bottom: 0;
+        width: 80px; height: 100vh;
+        flex-direction: column;
+        border-top: none;
+        border-right: 1px solid rgba(0,255,225,0.1);
+        padding: 80px 0 20px;
+        z-index: 98;
+      }
+
+      .bottom-tab {
+        padding: 16px 0;
+        flex: none;
+        width: 100%;
+      }
+
+      .tab-badge {
+        top: 8px;
+        right: 14px;
+      }
+
+      /* Geser semua page konten ke kanan */
+      .page {
+        padding-left: 80px;
+      }
+
+      /* Produk grid 4 kolom di desktop */
+      .card-container {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 900px;
+        gap: 14px;
+        padding: 0 32px;
+      }
+
+      /* Form order lebih lebar + tengah */
+      .order-section {
+        max-width: 600px;
+        padding: 0 32px 30px;
+      }
+
+      .upload-section {
+        max-width: 600px;
+        padding: 0 32px 30px;
+      }
+
+      /* Header lebih besar */
+      header {
+        padding: 48px 32px 20px;
+      }
+
+      header h1 {
+        font-size: 56px;
+      }
+
+      .section-title {
+        margin: 36px 0 18px;
+      }
+
+      /* Riwayat */
+      .riwayat-header {
+        padding: 32px 32px 0;
+        max-width: 800px;
+      }
+
+      .riwayat-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .rw-stat-val {
+        font-size: 28px;
+      }
+
+      /* Admin panel */
+      .admin-header-bar {
+        padding: 28px 32px 14px;
+        max-width: 900px;
+      }
+
+      .admin-stats {
+        padding: 0 32px 14px;
+        max-width: 900px;
+        gap: 14px;
+      }
+
+      .stat-value { font-size: 30px; }
+
+      .filter-tabs {
+        padding: 10px 32px;
+        max-width: 900px;
+      }
+
+      .admin-toolbar {
+        padding: 4px 32px 12px;
+        max-width: 900px;
+      }
+
+      .orders-list {
+        padding: 0 32px 30px;
+        max-width: 900px;
+      }
+
+      /* Order cards desktop — 2 kolom */
+      .orders-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+
+      /* Riwayat list desktop — 2 kolom */
+      .riwayat-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+
+      /* Top nav stays above sidebar */
+      .top-nav {
+        left: 80px;
+        z-index: 101;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      /* Form card bigger padding */
+      .form-card {
+        padding: 28px 26px;
+      }
+
+      .testi-section {
+        max-width: 1000px;
+        padding: 0 32px 30px;
+      }
+
+      .testi-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      /* Input bigger on desktop */
+      .input-field {
+        font-size: 15px;
+        padding: 14px 16px;
+      }
+
+      /* Payment cards */
+      .payment-card {
+        padding: 18px 22px;
+      }
+
+      .pm-number {
+        font-size: 24px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .card-container {
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 1100px;
+      }
+
+      .order-section, .upload-section {
+        max-width: 680px;
+      }
+
+      .orders-list, .orders-list {
+        max-width: 1100px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+
+    /* ══════════════════════════════
+       ADMIN - KELOLA PRODUK
+    ══════════════════════════════ */
+
+    .admin-tab-bar {
+      display: flex; gap: 0;
+      max-width: 700px; margin: 0 auto 0;
+      padding: 0 14px;
+      border-bottom: 1px solid rgba(0,255,225,0.1);
+    }
+
+    .admin-tab-btn {
+      padding: 12px 18px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px; letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      border: none; background: transparent;
+      cursor: pointer; border-bottom: 2px solid transparent;
+      transition: all 0.2s; text-transform: uppercase;
+      position: relative; bottom: -1px;
+      white-space: nowrap;
+    }
+    .admin-tab-btn.active { color: var(--neon); border-bottom-color: var(--neon); }
+
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+
+    /* Produk grid in admin */
+    .produk-admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 14px 14px 10px;
+      max-width: 700px; margin: 0 auto;
+    }
+
+    @media(min-width:768px) {
+      .produk-admin-grid { grid-template-columns: repeat(3,1fr); padding: 14px 32px 10px; max-width: 900px; }
+    }
+
+    .produk-admin-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      backdrop-filter: blur(10px);
+      animation: fadeUp 0.3s ease both;
+      position: relative;
+    }
+
+    .pac-img {
+      width: 100%; aspect-ratio: 1/0.8;
+      object-fit: cover;
+      background: rgba(0,255,225,0.05);
+      display: block;
+    }
+
+    .pac-img-placeholder {
+      width: 100%; aspect-ratio: 1/0.8;
+      background: rgba(0,255,225,0.04);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; color: rgba(255,255,255,0.1);
+    }
+
+    .pac-body { padding: 10px 12px 12px; }
+
+    .pac-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px; font-weight: 700;
+      color: #fff; letter-spacing: 1px;
+      margin-bottom: 4px; text-transform: uppercase;
+    }
+
+    .pac-price {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--neon); margin-bottom: 10px;
+    }
+
+    .pac-actions {
+      display: flex; gap: 6px;
+    }
+
+    .pac-btn {
+      flex: 1; padding: 8px 6px;
+      border-radius: 8px; cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 8px; letter-spacing: 1px;
+      border: none; transition: all 0.2s;
+      text-transform: uppercase; font-weight: 700;
+    }
+
+    .pac-btn.edit { background: rgba(0,255,225,0.1); color: var(--neon); border: 1px solid rgba(0,255,225,0.25); }
+    .pac-btn.del { background: rgba(255,77,109,0.1); color: var(--red); border: 1px solid rgba(255,77,109,0.22); }
+    .pac-btn:active { transform: scale(0.95); }
+
+    /* Add produk button */
+    .btn-add-produk {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px;
+      width: calc(100% - 28px); margin: 0 14px 14px;
+      max-width: 672px;
+      padding: 14px;
+      background: rgba(0,255,225,0.06);
+      border: 2px dashed rgba(0,255,225,0.25);
+      border-radius: 14px; cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px; letter-spacing: 2px;
+      color: rgba(0,255,225,0.5);
+      transition: all 0.2s; text-transform: uppercase;
+    }
+    .btn-add-produk:hover { background: rgba(0,255,225,0.1); border-color: rgba(0,255,225,0.5); color: var(--neon); }
+
+    @media(min-width:768px) {
+      .btn-add-produk { width: calc(100% - 64px); margin: 0 32px 14px; max-width: 868px; }
+    }
+
+    /* Produk modal */
+    #produkModal {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(16px);
+      z-index: 8000;
+      justify-content: center; align-items: flex-end;
+      padding: 0;
+    }
+
+    .produk-modal-box {
+      background: rgba(7,21,32,0.99);
+      border: 1px solid rgba(0,255,225,0.2);
+      border-radius: 24px 24px 0 0;
+      padding: 28px 22px 36px;
+      width: 100%; max-width: 480px;
+      animation: slideUp 0.4s cubic-bezier(0.22,1,0.36,1);
+      max-height: 90vh; overflow-y: auto;
+    }
+
+    .modal-handle {
+      width: 40px; height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px; margin: 0 auto 22px;
+    }
+
+    .modal-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px; letter-spacing: 3px;
+      color: var(--neon); margin-bottom: 20px;
+      text-transform: uppercase; text-align: center;
+    }
+
+    /* Image upload in modal */
+    .img-upload-zone {
+      border: 2px dashed rgba(0,255,225,0.2);
+      border-radius: 12px;
+      aspect-ratio: 16/9;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer; position: relative;
+      overflow: hidden; margin-bottom: 14px;
+      background: rgba(0,255,225,0.02);
+      transition: all 0.2s;
+    }
+
+    .img-upload-zone:hover { border-color: rgba(0,255,225,0.45); background: rgba(0,255,225,0.05); }
+    .img-upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .img-upload-zone img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .img-upload-zone .upload-hint { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: rgba(0,255,225,0.4); letter-spacing: 1px; text-align: center; z-index: 1; }
+    .img-upload-zone .upload-hint span { font-size: 28px; display: block; margin-bottom: 8px; }
+
+    .modal-btns { display: flex; gap: 10px; margin-top: 6px; }
+
+    .btn-modal-save {
+      flex: 2; padding: 16px;
+      background: linear-gradient(135deg,#00ffe1,#00b0a2);
+      border: none; border-radius: 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; color: #040c12;
+      cursor: pointer; text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .btn-modal-save:active { transform: scale(0.97); }
+    .btn-modal-save:disabled { opacity: 0.5; }
+
+    .btn-modal-cancel {
+      flex: 1; padding: 16px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px; letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      cursor: pointer; text-transform: uppercase;
+    }
+
+    .produk-empty-state {
+      grid-column: 1/-1; text-align: center;
+      padding: 40px 20px;
+      color: rgba(0,255,225,0.25);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px; letter-spacing: 2px;
+    }
+
     ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg1);}::-webkit-scrollbar-thumb{background:rgba(0,255,225,0.2);border-radius:2px;}
   </style>
 </head>
@@ -816,32 +1204,9 @@ const firebaseConfig = {
   </header>
 
   <p class="section-title">— Pilih Produk —</p>
-
-  <section class="card-container">
-    <div class="card" id="card-0" onclick="selectProduct('Batu Evo','🪨',500,0)">
-      <div class="card-img" style="background-image:url('img/batu-evo.jpg')"></div>
-      <div class="card-overlay"></div><span class="card-select-badge">✓</span>
-      <div class="card-content"><div class="card-name">Batu Evo</div><div class="card-price">Rp500</div></div>
-    </div>
-    <div class="card" id="card-1" onclick="selectProduct('Secret Tumbal','💀',1000,1)">
-      <div class="card-img" style="background-image:url('img/secret-tumbal.jpg')"></div>
-      <div class="card-overlay"></div><span class="card-select-badge">✓</span>
-      <div class="card-content"><div class="card-name">Secret Tumbal</div><div class="card-price">Rp1.000</div></div>
-    </div>
-    <div class="card" id="card-2" onclick="selectProduct('Maja Biru','🔵',3000,2)">
-      <div class="card-img" style="background-image:url('img/maja-biru.jpg')"></div>
-      <div class="card-overlay"></div><span class="card-select-badge">✓</span>
-      <div class="card-content"><div class="card-name">Maja Biru</div><div class="card-price">Rp3.000</div></div>
-    </div>
-    <div class="card" id="card-3" onclick="selectProduct('Maja Kuning','🟡',4000,3)">
-      <div class="card-img" style="background-image:url('img/maja-kuning.jpg')"></div>
-      <div class="card-overlay"></div><span class="card-select-badge">✓</span>
-      <div class="card-content"><div class="card-name">Maja Kuning</div><div class="card-price">Rp4.000</div></div>
-    </div>
-    <div class="card" id="card-4" onclick="selectProduct('Megalodon','🦈',10000,4)">
-      <div class="card-img" style="background-image:url('img/megalodon.jpg')"></div>
-      <div class="card-overlay"></div><span class="card-select-badge">✓</span>
-      <div class="card-content"><div class="card-name">Megalodon</div><div class="card-price">Rp10.000</div></div>
+  <section class="card-container" id="produkGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:30px;color:rgba(0,255,225,0.3);font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;">
+      <div class="spinner"></div>
     </div>
   </section>
 
@@ -902,8 +1267,10 @@ const firebaseConfig = {
           <div class="pm-logo">⚡</div>
           <div class="pm-name">QRIS</div>
         </div>
-        <div class="pm-divider"></div><div class="pm-label" style="font-size:14px;opacity:1;color:#ffffff;font-weight:600;">QR Code akan tampil otomatis</div>
-<div class="pm-number" style="font-size:12px;opacity:1;color:#ffffff;font-weight:600;">Setelah Klik Order</div>
+        <div class="pm-divider"></div>
+        <div class="pm-label">Scan QR di bawah setelah order</div>
+        <div class="pm-number" style="font-size:14px;opacity:0.6">QR Code akan tampil otomatis</div>
+        <div class="pm-name-rek">a.n. m.yanis Zahiruddin</div>
       </div>
 
       <div class="input-row"><label class="input-label">Jumlah Pembelian</label><input type="number" class="input-field" id="jumlah" min="1" value="1" oninput="updateTotal()"></div>
@@ -951,6 +1318,15 @@ const firebaseConfig = {
     <div class="admin-title">⚙ Admin</div>
     <button class="btn-logout" onclick="logout()">⏏ Keluar</button>
   </div>
+
+  <!-- Admin Tab Bar -->
+  <div class="admin-tab-bar">
+    <button class="admin-tab-btn active" id="atOrders" onclick="switchAdminTab('orders')">🛒 Orders</button>
+    <button class="admin-tab-btn" id="atProduk" onclick="switchAdminTab('produk')">📦 Produk</button>
+  </div>
+
+  <!-- Orders Section -->
+  <div class="admin-section active" id="as-orders">
   <div class="admin-stats">
     <div class="stat-card total"><div class="stat-label">Total</div><div class="stat-value total-v" id="statTotal">—</div></div>
     <div class="stat-card berhasil"><div class="stat-label">Berhasil</div><div class="stat-value berhasil-v" id="statBerhasil">—</div></div>
@@ -968,6 +1344,49 @@ const firebaseConfig = {
   </div>
   <div class="orders-list" id="ordersList">
     <div class="loading-state"><div class="spinner"></div></div>
+  </div>
+  </div><!-- end as-orders -->
+
+  <!-- Produk Section -->
+  <div class="admin-section" id="as-produk">
+    <button class="btn-add-produk" onclick="openProdukModal()">
+      ＋ TAMBAH PRODUK BARU
+    </button>
+    <div class="produk-admin-grid" id="produkAdminGrid">
+      <div class="loading-state" style="grid-column:1/-1"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PRODUK MODAL -->
+<div id="produkModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);backdrop-filter:blur(16px);z-index:8000;justify-content:center;align-items:flex-end;padding:0;">
+  <div class="produk-modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modalTitle">✚ Tambah Produk</div>
+    <div class="input-row">
+      <label class="input-label">Foto Produk</label>
+      <div class="img-upload-zone" id="modalImgZone">
+        <input type="file" id="modalImgFile" accept="image/*" onchange="handleModalImg(event)">
+        <div class="upload-hint" style="display:flex;flex-direction:column;align-items:center"><span style="font-size:28px;margin-bottom:8px">🖼</span>Tap untuk pilih foto produk</div>
+      </div>
+    </div>
+    <div class="input-row">
+      <label class="input-label">Nama Produk</label>
+      <input type="text" class="input-field" id="modalNama" placeholder="Contoh: Megalodon...">
+    </div>
+    <div class="input-row">
+      <label class="input-label">Harga (Rp)</label>
+      <input type="number" class="input-field" id="modalHarga" placeholder="Contoh: 10000" min="0">
+    </div>
+    <div class="input-row">
+      <label class="input-label">Deskripsi (opsional)</label>
+      <input type="text" class="input-field" id="modalDeskripsi" placeholder="Contoh: Item langka S-tier...">
+    </div>
+    <div class="modal-btns">
+      <button class="btn-modal-cancel" onclick="closeProdukModal()">Batal</button>
+      <button class="btn-modal-save" id="btnModalSave" onclick="saveProduk()">💾 SIMPAN</button>
+    </div>
   </div>
 </div>
 
@@ -1093,8 +1512,8 @@ window.addEventListener('firebase-ready', () => {
   const pid = text.match(/projectId:\s*"([^"]+)"/)?.[1];
   if (!pid || pid === 'GANTI_PROJECT_ID') { setFbStatus('error','belum config'); return; }
   setFbStatus('connected','online');
-  // Start listener untuk sync status riwayat
   startPublicSync();
+  startProdukListener(); // Load produk realtime
 });
 
 function setFbStatus(type,text){
@@ -1111,9 +1530,10 @@ function startPublicSync() {
   const q = query(ordersRef, orderBy('timestamp','desc'));
   onSnapshot(q, snap => {
     const fbOrders = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+    // Selalu simpan allOrders, biar ready waktu admin login
+    allOrders = fbOrders;
     syncRiwayatStatus(fbOrders);
     if (isAdminLoggedIn) {
-      allOrders = fbOrders;
       updateStats(); renderOrders();
       document.getElementById('liveBadge').style.display = 'inline-flex';
     }
@@ -1141,6 +1561,10 @@ function checkPin(){
   if(pinValue===ADMIN_PIN){
     closePwPopup(); isAdminLoggedIn=true;
     showPage('admin'); showToast('✓ Selamat datang, Admin!');
+    // Render semua admin panels dengan data yang sudah ada
+    updateStats(); renderOrders();
+    renderProdukAdmin();
+    document.getElementById('liveBadge').style.display = 'inline-flex';
   } else {
     for(let i=0;i<4;i++){ const d=document.getElementById('pd'+i); d.classList.remove('filled'); d.classList.add('error'); }
     setTimeout(()=>{ pinValue=''; updatePinDots(); },800);
@@ -1327,6 +1751,217 @@ async function deleteOrderFB(docId){ const{db,doc,deleteDoc}=window._fb; await d
 async function adminConfirm(docId){ await updateStatusFB(docId,'BERHASIL'); showToast('✓ Order dikonfirmasi!'); }
 async function adminReject(docId){ await updateStatusFB(docId,'GAGAL'); showToast('✕ Order ditolak.'); }
 async function clearAllOrders(){ if(!confirm('Hapus semua order?')) return; for(const o of allOrders) await deleteOrderFB(o.docId); showToast('🗑 Semua order dihapus.'); }
+
+
+// ══════════════════════════════
+// PRODUK MANAGEMENT
+// ══════════════════════════════
+
+let allProduks = [];
+let editingProdukId = null;
+let modalImgBase64 = null;
+let selectedProduk = null;
+
+// Listen produk dari Firebase (realtime)
+function startProdukListener() {
+  if (!window._fb) return;
+  const { produksRef, onSnapshot } = window._fb;
+  onSnapshot(produksRef, snap => {
+    allProduks = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+    // Sort by urutan/createdAt client side
+    allProduks.sort((a,b) => (a.urutan||a.createdAt||0) - (b.urutan||b.createdAt||0));
+    renderProdukStore();
+    renderProdukAdmin();
+    updateTestitProdukOptions();
+  });
+}
+
+// Render produk di store (customer view)
+function renderProdukStore() {
+  const grid = document.getElementById('produkGrid');
+  if (!allProduks.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(0,255,225,0.25);font-family:Share Tech Mono,monospace;font-size:12px;letter-spacing:2px">[ BELUM ADA PRODUK ]</div>';
+    return;
+  }
+  grid.innerHTML = allProduks.map((p, i) => `
+    <div class="card ${selectedProduk && selectedProduk.docId===p.docId ? 'selected' : ''}" id="pcard-${i}" onclick="selectProdukDynamic(${i})">
+      ${p.gambar
+        ? `<div class="card-img" style="background-image:url('${p.gambar}')"></div>`
+        : `<div class="card-img" style="background:rgba(0,255,225,0.05);display:flex;align-items:center;justify-content:center;font-size:40px">📦</div>`}
+      <div class="card-overlay"></div>
+      <span class="card-select-badge">✓</span>
+      <div class="card-content">
+        <div class="card-name">${p.nama||'—'}</div>
+        <div class="card-price">Rp${(p.harga||0).toLocaleString('id-ID')}</div>
+      </div>
+    </div>`).join('');
+}
+
+// Select produk dari dynamic grid
+function selectProdukDynamic(idx) {
+  const p = allProduks[idx];
+  if (!p) return;
+  selectedProduk = p;
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('pcard-' + idx)?.classList.add('selected');
+  dataOrder.id = generateId();
+  dataOrder.produk = p.nama;
+  dataOrder.harga = p.harga;
+  dataOrder.gambar = p.gambar || '';
+  document.getElementById('selectedBanner').classList.add('visible');
+  document.getElementById('selectedName').textContent = p.nama;
+  document.getElementById('selectedPriceTag').textContent = 'Rp' + p.harga.toLocaleString('id-ID');
+  updateTotal();
+  document.querySelector('.order-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Render produk di admin panel
+function renderProdukAdmin() {
+  const grid = document.getElementById('produkAdminGrid');
+  if (!allProduks.length) {
+    grid.innerHTML = '<div class="produk-empty-state">[ BELUM ADA PRODUK ]<br><span style="font-size:11px;opacity:0.5">Klik + Tambah Produk Baru</span></div>';
+    return;
+  }
+  grid.innerHTML = allProduks.map((p, i) => `
+    <div class="produk-admin-card" style="animation-delay:${i*0.06}s">
+      ${p.gambar
+        ? `<img class="pac-img" src="${p.gambar}" alt="${p.nama}">`
+        : `<div class="pac-img-placeholder">📦</div>`}
+      <div class="pac-body">
+        <div class="pac-name">${p.nama||'—'}</div>
+        <div class="pac-price">Rp${(p.harga||0).toLocaleString('id-ID')}</div>
+        <div class="pac-actions">
+          <button class="pac-btn edit" onclick="editProduk('${p.docId}')">✏ Edit</button>
+          <button class="pac-btn del" onclick="deleteProduk('${p.docId}','${p.nama}')">🗑 Hapus</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// Update dropdown produk di form testimoni
+function updateTestitProdukOptions() {
+  const sel = document.getElementById('testiProduk');
+  if (!sel) return;
+  const current = sel.value;
+  // Keep default option
+  sel.innerHTML = '<option value="">Pilih produk...</option>';
+  allProduks.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.nama; opt.textContent = p.nama;
+    if (p.nama === current) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+// ── Modal ──
+function openProdukModal(docId) {
+  editingProdukId = docId || null;
+  modalImgBase64 = null;
+
+  // Reset form
+  document.getElementById('modalNama').value = '';
+  document.getElementById('modalHarga').value = '';
+  document.getElementById('modalDeskripsi').value = '';
+  document.getElementById('modalImgFile').value = '';
+
+  // Reset image zone
+  const zone = document.getElementById('modalImgZone');
+  const existingImg = zone.querySelector('img.preview-img');
+  if (existingImg) existingImg.remove();
+  zone.querySelector('.upload-hint').style.display = 'flex';
+
+  if (docId) {
+    // Edit mode — prefill
+    const p = allProduks.find(x => x.docId === docId);
+    if (p) {
+      document.getElementById('modalTitle').textContent = '✏ Edit Produk';
+      document.getElementById('modalNama').value = p.nama || '';
+      document.getElementById('modalHarga').value = p.harga || '';
+      document.getElementById('modalDeskripsi').value = p.deskripsi || '';
+      if (p.gambar) {
+        modalImgBase64 = p.gambar;
+        showModalImgPreview(p.gambar);
+      }
+    }
+  } else {
+    document.getElementById('modalTitle').textContent = '✚ Tambah Produk';
+  }
+
+  document.getElementById('produkModal').style.display = 'flex';
+}
+
+function closeProdukModal() {
+  document.getElementById('produkModal').style.display = 'none';
+  editingProdukId = null;
+  modalImgBase64 = null;
+}
+
+function handleModalImg(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  compressImage(file, (b64) => {
+    modalImgBase64 = b64;
+    showModalImgPreview(b64);
+  });
+}
+
+function showModalImgPreview(src) {
+  const zone = document.getElementById('modalImgZone');
+  zone.querySelector('.upload-hint').style.display = 'none';
+  let img = zone.querySelector('img.preview-img');
+  if (!img) { img = document.createElement('img'); img.className = 'preview-img'; zone.appendChild(img); }
+  img.src = src;
+}
+
+async function saveProduk() {
+  const nama = document.getElementById('modalNama').value.trim();
+  const harga = parseInt(document.getElementById('modalHarga').value) || 0;
+  const deskripsi = document.getElementById('modalDeskripsi').value.trim();
+
+  if (!nama) { showToast('⚠ Nama produk wajib diisi!'); return; }
+  if (!harga) { showToast('⚠ Harga wajib diisi!'); return; }
+
+  const btn = document.getElementById('btnModalSave');
+  btn.disabled = true; btn.textContent = 'MENYIMPAN...';
+
+  const data = {
+    nama, harga, deskripsi,
+    gambar: modalImgBase64 || '',
+    urutan: editingProdukId ? (allProduks.find(p=>p.docId===editingProdukId)?.urutan || Date.now()) : Date.now(),
+    updatedAt: Date.now()
+  };
+
+  try {
+    const { db, doc, updateDoc, addDoc, produksRef } = window._fb;
+    if (editingProdukId) {
+      await updateDoc(doc(db, 'produks', editingProdukId), data);
+      showToast('✓ Produk diperbarui!');
+    } else {
+      await addDoc(produksRef, { ...data, createdAt: Date.now() });
+      showToast('✓ Produk ditambahkan!');
+    }
+    closeProdukModal();
+  } catch(e) { showToast('⚠ Gagal: ' + e.message); }
+
+  btn.disabled = false; btn.textContent = '💾 SIMPAN';
+}
+
+function editProduk(docId) { openProdukModal(docId); }
+
+async function deleteProduk(docId, nama) {
+  if (!confirm('Hapus produk "' + nama + '"?')) return;
+  const { db, doc, deleteDoc } = window._fb;
+  await deleteDoc(doc(db, 'produks', docId));
+  showToast('🗑 Produk dihapus.');
+}
+
+// ── Admin tab switch ──
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('as-' + tab).classList.add('active');
+  document.getElementById('at' + (tab === 'orders' ? 'Orders' : 'Produk')).classList.add('active');
+}
 
 // ── Store ──
 function selectProduct(produk, emoji, harga, idx){
@@ -1529,11 +2164,13 @@ async function submitBukti() {
     const rwIdx = rwList.findIndex(o => o.id === orderId);
     if (rwIdx >= 0) { rwList[rwIdx].buktiTransfer = buktiBase64; localStorage.setItem(RW_KEY, JSON.stringify(rwList)); }
 
-    showToast('✓ Bukti berhasil dikirim ke admin!');
+    showToast('✓ Bukti terkirim! Membuka WhatsApp...');
     prog.classList.remove('visible');
     fill.style.width = '0%';
     removeBukti();
     document.getElementById('uploadSection').style.display = 'none';
+    // Buka WA setelah bukti terkirim
+    setTimeout(() => kirimWA(dataOrder.metode), 800);
 
   } catch(e) {
     showToast('⚠ Gagal kirim: ' + e.message);
